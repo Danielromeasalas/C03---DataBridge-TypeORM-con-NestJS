@@ -1,20 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+import { useEffect,useState } from 'react';
+import { Button,FlatList,SafeAreaView,Text,View } from 'react-native';
+type Evento={id:number;nombre:string;ciudad:string;categoria:string;fecha:string};
+const API_URL='http://172.17.21.28:3000';
+export default function App(){
+ const [eventos,setEventos]=useState<Evento[]>([]);
+ async function filtrar(){
+   const url=API_URL+'/eventos?ciudad=Zaragoza';
+   const r=await fetch(url);setEventos(await r.json());
+ }
+ useEffect(()=>{filtrar();},[]);
+ return <SafeAreaView><Text>🎟️ Event Radar</Text><Button title="Zaragoza · Tech" onPress={filtrar}/>
+ <FlatList data={eventos} keyExtractor={x=>String(x.id)} renderItem={({item})=><View><Text>{item.nombre}</Text><Text>{item.ciudad} · {item.categoria}</Text></View>}/></SafeAreaView>;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

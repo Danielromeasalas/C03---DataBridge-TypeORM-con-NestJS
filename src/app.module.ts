@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { RestaurantesModule } from './restaurantes/restaurantes.module';
+import { DestinosModule } from './destinos/destinos.module';
 
 @Module({
   imports: [
@@ -10,11 +10,11 @@ import { RestaurantesModule } from './restaurantes/restaurantes.module';
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'databridge_e04',
+      database: 'databridge_e10',
       autoLoadEntities: true,
       synchronize: true,
     }),
-    RestaurantesModule,
+    DestinosModule,
   ],
 })
 export class AppModule {}
